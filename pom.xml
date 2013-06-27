@@ -15,6 +15,10 @@
 	<repositories>
 		<!-- Repository for Bukkit -->
 		<repository>
+			<id>ec-repo</id>
+			<url>dev.escapecraft.com/maven/</url>
+		</repository>
+		<repository>
 			<id>bukkit-repo</id>
 			<url>http://repo.bukkit.org/content/groups/public</url>
 		</repository>
@@ -22,13 +26,36 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.bukkit</groupId>
-			<artifactId>bukkit</artifactId>
-			<version>1.4.7-R0.1</version>
+			<groupId>${env.bukkitGroup}</groupId>
+			<artifactId>${env.bukkitArtifact}</artifactId>
+			<version>${env.bukkitVersion}</version>
 			<type>jar</type>
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>
 
 	</dependencies>
+
+  <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.4</version>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <tasks>
+                <echo>project.groupId: ${project.groupId}</echo>
+                <echo>project.artifactId: ${project.artifactId}</echo>
+                <echo>project.version: ${project.version}</echo>
+              </tasks>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+  </plugins>
 </project>
